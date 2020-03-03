@@ -21,7 +21,7 @@ public enum ScoreEnum {
         return Arrays.stream(ScoreEnum.values())
                 .filter(scoreEnum -> scoreEnum.score == score)
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException("Unsupported parameters"));
+                .orElseThrow(() -> new IllegalArgumentException("Unsupported parameters " + score));
     }
 
     public int getScore() {
