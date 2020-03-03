@@ -19,11 +19,11 @@ public class TennisGame2 extends AbstractTennisGame implements TennisGame {
         }
 
         if (Math.abs(score_1 - score_2) < 2 && Math.min(score_1,score_2) >= 3){
-            return "Advantage " + (score_1 > score_2 ? PLAYER1 : PLAYER2);
+            return "Advantage " + (score_1 > score_2 ? player1Name : player2Name);
         }
 
         if (Math.abs(score_1 - score_2) >= 2 && Math.max(score_1,score_2) >= 4){
-            return "Win for " + (score_1 > score_2 ? PLAYER1 : PLAYER2);
+            return "Win for " + (score_1 > score_2 ? player1Name : player2Name);
         }
 
         return ScoreEnum.of(score_1).getDesc() + "-" + ScoreEnum.of(score_2).getDesc();
