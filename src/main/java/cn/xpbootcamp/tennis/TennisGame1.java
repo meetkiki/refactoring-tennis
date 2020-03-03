@@ -22,31 +22,49 @@ public class TennisGame1 implements TennisGame {
     }
 
     public String getScore() {
-        StringBuilder score = new StringBuilder();
 
         if (isEqualScore()) {
-            if (m_score1 > 2) {
-                score = new StringBuilder("Deuce");
-            } else {
-                score.append(ScoreEnum.of(m_score1).getDesc()).append("-All");
-            }
-            return score.toString();
+            return sameScoreProcessing();
         }
 
-        if (m_score1 >= 4 || m_score2 >= 4) {
-            int minusResult = m_score1 - m_score2;
-            if (minusResult == 1) score = new StringBuilder("Advantage player1");
-            else if (minusResult == -1) score = new StringBuilder("Advantage player2");
-            else if (minusResult >= 2) score = new StringBuilder("Win for player1");
-            else score = new StringBuilder("Win for player2");
-            return score.toString();
+        if (isScoreExceedsFour()) {
+            return scoreExceedsFourProcess();
         }
 
+        return unbeatenOrdinary();
+    }
+
+    private String scoreExceedsFourProcess() {
+        int minusResult = m_score1 - m_score2;
+        if (Math.abs(minusResult) == 1) {
+            return "Advantage " + (m_score1 > m_score2 ? "player1" : "player2");
+        }
+        return "Win for " + (m_score1 > m_score2 ? "player1" : "player2");
+    }
+
+
+    private String unbeatenOrdinary() {
+        StringBuilder score = new StringBuilder();
         score.append(ScoreEnum.of(m_score1).getDesc())
-            .append("-")
-            .append(ScoreEnum.of(m_score2).getDesc());
+                .append("-")
+                .append(ScoreEnum.of(m_score2).getDesc());
         return score.toString();
     }
+
+    private String sameScoreProcessing() {
+        StringBuilder score = new StringBuilder();
+        if (this.m_score1 > 2) {
+            score = new StringBuilder("Deuce");
+            return score.toString();
+        }
+        score.append(ScoreEnum.of(this.m_score1).getDesc()).append("-All");
+        return score.toString();
+    }
+
+    private boolean isScoreExceedsFour() {
+        return m_score1 >= 4 || m_score2 >= 4;
+    }
+
 
     private boolean isEqualScore() {
         return this.m_score1 == this.m_score2;
