@@ -24,11 +24,11 @@ public class TennisGame1 implements TennisGame {
     public String getScore() {
         StringBuilder score = new StringBuilder();
 
-        if (m_score1 == m_score2) {
-            if (m_score1 > 2){
+        if (isEqualScore()) {
+            if (m_score1 > 2) {
                 score = new StringBuilder("Deuce");
-            }else {
-                score = score.append(ScoreEnum.of(m_score1).getDesc()).append("-All");
+            } else {
+                score.append(ScoreEnum.of(m_score1).getDesc()).append("-All");
             }
             return score.toString();
         }
@@ -42,15 +42,13 @@ public class TennisGame1 implements TennisGame {
             return score.toString();
         }
 
-        for (int i = 1, tempScore; i < 3; i++) {
-            if (i == 1) {
-                tempScore = m_score1;
-            } else {
-                score.append("-");
-                tempScore = m_score2;
-            }
-            score.append(ScoreEnum.of(tempScore).getDesc());
-        }
+        score.append(ScoreEnum.of(m_score1).getDesc())
+            .append("-")
+            .append(ScoreEnum.of(m_score2).getDesc());
         return score.toString();
+    }
+
+    private boolean isEqualScore() {
+        return this.m_score1 == this.m_score2;
     }
 }
